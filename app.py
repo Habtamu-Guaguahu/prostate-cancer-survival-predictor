@@ -151,7 +151,7 @@ def main():
     st.markdown("""
     <div style='text-align: center; padding: 1rem; background-color: #1B4332; border-radius: 10px; color: white;'>
         <h1>🩺 Prostate Cancer Survival Predictor</h1>
-        <p style='font-size: 1.1rem;'>Powered by GBSA Model with RSF Features</p>
+        <p style='font-size: 1.1rem;'>web-application developed using GBSA model with RSF feature selection method</p>
         <p style='font-size: 0.9rem;'>C-index: 0.8321 | iAUC: 0.8940</p>
     </div>
     """, unsafe_allow_html=True)
@@ -161,8 +161,9 @@ def main():
     # Sidebar
     with st.sidebar:
         st.header("📊 Model Performance")
-        st.metric("Test C-index", "0.8321", "Excellent")
-        st.metric("iAUC", "0.8940", "Excellent")
+        # Removed "Excellent" delta from metrics
+        st.metric("Test C-index", "0.8321")
+        st.metric("iAUC", "0.8940")
         st.metric("Risk Group Cutoff", "-0.3187")
         
         st.markdown("---")
@@ -376,38 +377,14 @@ def main():
             
             st.plotly_chart(fig, use_container_width=True)
             
-            # Clinical interpretation
-            with st.expander("📖 Clinical Interpretation", expanded=True):
-                st.markdown(f"""
-                **Patient Summary:**
-                - Risk Score: {risk_score:.3f}
-                - Risk Group: **{risk_group}**
-                - Predicted Survival at {prediction_time} months: **{surv_prob:.1%}**
-                
-                **Clinical Recommendations:**
-                """)
-                
-                if risk_group == "High Risk":
-                    st.markdown("""
-                    - ⚠️ **Intensify treatment**: Consider combination therapies
-                    - 📊 **Close monitoring**: More frequent follow-up visits
-                    - 🏥 **Clinical trials**: Evaluate eligibility for experimental therapies
-                    - 📈 **Median survival**: ~38.0 months for this group
-                    """)
-                else:
-                    st.markdown("""
-                    - ✅ **Standard treatment**: Current treatment plan appropriate
-                    - 📊 **Regular monitoring**: Standard follow-up schedule
-                    - 🏥 **Quality of life**: Focus on maintaining quality of life
-                    - 📈 **Median survival**: ~54.0 months for this group
-                    """)
-                
-                st.markdown(f"""
-                **Model Performance Context:**
-                - This model has excellent discrimination (C-index: 0.8321)
-                - The risk group separation is highly significant (p < 0.0001)
-                - Results should be interpreted in clinical context
-                """)
+            # Clinical interpretation section removed as requested.
+            # Instead, we show only the model performance context in a simple note.
+            st.markdown("""
+            **Model Performance Context:**
+            - This model has excellent discrimination (C-index: 0.8321)
+            - The risk group separation is highly significant (p < 0.0001)
+            - Results should be interpreted in clinical context
+            """)
         else:
             # Welcome message
             st.info("👈 Enter patient characteristics in the left panel and click 'Predict Survival'")
